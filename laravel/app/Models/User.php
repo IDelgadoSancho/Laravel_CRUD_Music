@@ -45,4 +45,10 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    // one to many festivales
+    public function festivals()
+    {
+        return $this->hasMany(Festival::class);
+    }
 }
