@@ -1,21 +1,32 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\FestivalController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DefaultController;
+use Illuminate\Support\Facades\Route;
 
-// Route::get('/', function () {
-//     return view('welcome');
+if (!function_exists('redirectToHome')) {
+    function redirectToHome()
+    {
+        return redirect()->intended(route('home', [], false));
+    }
+}
+
+// Route::get('dashboard', function () {
+//     return view('default.home');
 // });
+
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/', [DefaultController::class, 'home'])->name('home');
 
-//// festivals
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
-Route::get('/festival/list', [FestivalController::class, 'list'])->name('festival_list');
+require __DIR__ . '/auth.php';
+require __DIR__ . '/festival.php';
 
-Route::match(['get', 'post'], '/festival/new', [FestivalController::class, 'new'])->name('festival_new');
-
-Route::match(['get', 'post'], '/festival/edit/{id}', [FestivalController::class, 'edit'])->name('festival_edit');
-
-Route::get('/festival/delete/{id}', [FestivalController::class, 'delete'])->name('festival_delete');
