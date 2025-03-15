@@ -19,6 +19,9 @@ return new class extends Migration
             $table->date('data_fi');
             $table->string('cartell')->nullable();
             $table->timestamps();
+
+            // foreig key user
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
         });
     }
 
