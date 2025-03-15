@@ -12,7 +12,7 @@ class FestivalController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function list()
     {
         $festivals = Festival::with('organitzador')->get();
         return view('festival.list', ['festivals' => $festivals]);
@@ -47,7 +47,7 @@ class FestivalController extends Controller
 
         $users = User::all();
 
-        return view('fesival.new', ['users' => $users]);
+        return view('festival.new', ['users' => $users]);
     }
 
     /**
@@ -84,7 +84,7 @@ class FestivalController extends Controller
 
             $festival->save();
 
-            return redirect()->route('festival.list')->with('status', 'Festival ' .
+            return redirect()->route('festival_list')->with('status', 'Festival ' .
                 $festival->nom . ' editat!');
         }
 
