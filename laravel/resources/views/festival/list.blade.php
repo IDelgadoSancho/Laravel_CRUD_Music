@@ -24,6 +24,7 @@
                 <th>Ubicació</th>
                 <th>Data Inici</th>
                 <th>Data Fi</th>
+                <th>Cartell</th>
                 <th>Organitzador</th>
                 <th>Accions</th>
             </tr>
@@ -33,8 +34,12 @@
                 <tr>
                     <td>{{ $festival->nom }}</td>
                     <td>{{ $festival->ubicacio }}</td>
-                    <td>{{ $festival->data_inici->format('d-m-Y') }}</td>
-                    <td>{{ $festival->data_fi->format('d-m-Y') }}</td>
+                    <td>{{ $festival->data_inici }}</td>
+                    <td>{{ $festival->data_fi }}</td>
+                    <td class="img">
+                        <img src="{{ asset(env('RUTA_IMATGES') . $festival->cartell) }}" style="width: 100px; heigth: auto;"
+                            alt="">
+                    </td>
                     <td>{{ $festival->organitzador->name }}</td>
                     <td>
                         <a href="{{ route('festival_edit', ['id' => $festival->id]) }}">Editar</a>

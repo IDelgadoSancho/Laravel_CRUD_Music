@@ -43,6 +43,8 @@ class FestivalController extends Controller
 
             $festival->user_id = $request->user_id;
             $festival->save();
+
+            return redirect()->route('festival_list')->with('status', 'Nou festival ' . $festival->nom . ' creat!');
         }
 
         $users = User::all();
@@ -58,7 +60,6 @@ class FestivalController extends Controller
         $festival = festival::find($id);
         if ($request->isMethod('post')) {
 
-            $festival = new festival;
             $festival->nom = $request->nom;
             $festival->ubicacio = $request->ubicacio;
             $festival->data_inici = $request->data_inici;
@@ -66,8 +67,8 @@ class FestivalController extends Controller
             $festival->user_id = $request->user_id;
 
             // imagen
-            if ($request->file('imatge')) {
-                $file = $request->file('imatge');
+            if ($request->file('cartell')) {
+                $file = $request->file('cartell');
                 //guardem en una variable $filename el nom que posarem al fitxer
                 $extension = $file->getClientOriginalExtension();
                 $filename = $festival->nom . "_" . $festival->data_inici . "." . $extension;
@@ -100,7 +101,7 @@ class FestivalController extends Controller
         $festival = festival::find($id);
         $festival->delete();
 
-        return redirect()->route('festival.list')->with('status', 'Festival ' .
+        return redirect()->route('festival_list')->with('status', 'Festival ' .
             $festival->nom . ' eliminat!');
     }
 }

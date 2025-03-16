@@ -21,7 +21,7 @@
         <label>Organitzador:
             <select name="user_id">
                 @foreach ($users as $user)
-                    <option value="{{ $user->id }}">{{ $user->nom }}</option>
+                    <option value="{{ $user->id }}">{{ $user->name }}</option>
                 @endforeach
             </select>
         </label><br>
