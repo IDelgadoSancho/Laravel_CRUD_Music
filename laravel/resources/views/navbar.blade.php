@@ -19,7 +19,7 @@
     &nbsp;&nbsp;&nbsp;
     <a href="{{ route('festival_list') }}">Festivals</a>
     &nbsp;&nbsp;&nbsp;
-    <a href="">Concerts</a>
+    <a href="{{ route('concert_list') }}">Concerts</a>
     &nbsp;&nbsp;&nbsp;
     <a href="">Artistes</a>
 </nav>

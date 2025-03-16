@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title', 'Llistat de llibres')
+@section('title', 'Llistat de Festivals')
 
 @section('stylesheets')
     @parent

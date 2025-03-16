@@ -28,5 +28,5 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__ . '/auth.php';
-require __DIR__ . '/festival.php';
+require __DIR__ . '/festivals_db.php';
 

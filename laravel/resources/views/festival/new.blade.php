@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title', 'Nou Llibre')
+@section('title', 'New Festival')
 
 @section('stylesheets')
     @parent
