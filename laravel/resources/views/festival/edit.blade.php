@@ -24,12 +24,16 @@
         <br>
         <div>
             <label>Data Inici:
-                <input type="date" name="data_inici" value="{{ $festival->data_inici }}" required></label>
+                <input type="date" name="data_inici"
+                    value="{{ old('data_inici', isset($festival) ? $festival->data_inici->format('Y-m-d') : '') }}"
+                    required></label>
         </div>
         <br>
         <div>
             <label>Data Fi:
-                <input type="date" name="data_fi" value="{{ $festival->data_fi }}" required></label>
+                <input type="date" name="data_fi"
+                    value="{{ old('data_fi', isset($festival) ? $festival->data_fi->format('Y-m-d') : '') }}"
+                    required></label>
         </div>
         <br>
         @if ($festival->cartell)

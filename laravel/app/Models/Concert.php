@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Concert extends Model
 {
+
+    protected $casts = [
+        'data_hora' => 'datetime:Y-m-d'
+    ];
+
     // cada concierto pertenece a un festival
     public function festival()
     {
@@ -14,8 +19,8 @@ class Concert extends Model
 
     // many to many artistas
     public function artistas()
-{
-    return $this->belongsToMany(Artista::class)->withPivot('sou');
-}
+    {
+        return $this->belongsToMany(Artista::class)->withPivot('sou');
+    }
 
 }

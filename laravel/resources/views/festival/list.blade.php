@@ -35,8 +35,8 @@
                 <tr>
                     <td>{{ $festival->nom }}</td>
                     <td>{{ $festival->ubicacio }}</td>
-                    <td>{{ $festival->data_inici }}</td>
-                    <td>{{ $festival->data_fi }}</td>
+                    <td>{{ $festival->data_inici->format('d-m-Y') }}</td>
+                    <td>{{ $festival->data_fi->format('d-m-Y') }}</td>
                     <td>
                         @if ($festival->concerts->isEmpty())
                             No hi ha concerts associats

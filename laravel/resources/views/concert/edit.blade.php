@@ -19,7 +19,9 @@
         <br>
         <div>
             <label>Data Hora:
-                <input type="date" name="data_hora" value="{{ $concert->data_hora }}" required></label>
+                <input type="date" name="data_hora"
+                    value="{{ old('data_hora', isset($concert) ? $concert->data_hora->format('Y-m-d') : '') }}"
+                    required></label>
         </div>
         <br>
         <div>

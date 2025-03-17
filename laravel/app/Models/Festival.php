@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Festival extends Model
 {
+    protected $casts = [
+        'data_inici' => 'datetime:Y-m-d',
+        'data_fi' => 'datetime:Y-m-d',
+    ];
+
     // relacion one to many
     public function concerts()
     {

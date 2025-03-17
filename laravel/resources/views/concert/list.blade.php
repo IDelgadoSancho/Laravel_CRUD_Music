@@ -32,7 +32,7 @@
             @foreach ($concerts as $concert)
                 <tr>
                     <td>{{ $concert->nom }}</td>
-                    <td>{{ $concert->data_hora }}</td>
+                    <td>{{ $concert->data_hora->format('d-m-Y') }}</td>
                     <td>{{ $concert->aforament }}</td>
                     <td>{{ $concert->entrades_disponibles }}</td>
                     <td>
