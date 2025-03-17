@@ -13,7 +13,7 @@ class Concert extends Model
     }
 
     // many to many artistas
-    public function artistes()
+    public function artistas()
 {
     return $this->belongsToMany(Artista::class)->withPivot('sou');
 }

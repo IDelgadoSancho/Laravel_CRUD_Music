@@ -33,8 +33,8 @@
                     <td>{{ $artista->genere_musical }}</td>
                     <td>{{ $artista->pais_origen }}</td>
                     <td class="img">
-                        <img src="{{ asset(env('RUTA_IMATGES') . $artista->foto_artista) }}" style="width: 100px; heigth: auto;"
-                            alt="">
+                        <img src="{{ asset(env('RUTA_IMATGES') . '/artistas/' . $artista->foto_artista) }}"
+                            style="width: 100px; heigth: auto;" alt="">
                     </td>
                     <td>
                         <a href="{{ route('artista_edit', ['id' => $artista->id]) }}">Editar</a>

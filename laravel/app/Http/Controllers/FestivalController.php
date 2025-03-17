@@ -37,7 +37,7 @@ class FestivalController extends Controller
                 //guardem en una variable $filename el nom que posarem al fitxer
                 $extension = $file->getClientOriginalExtension();
                 $filename = $festival->nom . "_" . $festival->data_inici . "." . $extension;
-                $file->move(public_path(env('RUTA_IMATGES')), $filename);
+                $file->move(public_path(env('RUTA_IMATGES') . '/festivals'), $filename);
                 $festival->cartell = $filename;
             }
 
@@ -72,7 +72,7 @@ class FestivalController extends Controller
                 //guardem en una variable $filename el nom que posarem al fitxer
                 $extension = $file->getClientOriginalExtension();
                 $filename = $festival->nom . "_" . $festival->data_inici . "." . $extension;
-                $file->move(public_path(env('RUTA_IMATGES')), $filename);
+                $file->move(public_path(env('RUTA_IMATGES') . '/festivals'), $filename);
                 $festival->cartell = $filename;
             }
 
@@ -80,7 +80,7 @@ class FestivalController extends Controller
             if ($active == 0) {
                 $filename = $festival->cartell;
                 $festival->cartell = null;
-                File::delete(public_path(env('RUTA_IMATGES')) . $filename);
+                File::delete(public_path(env('RUTA_IMATGES') . '/festivals') . $filename);
             }
 
             $festival->save();

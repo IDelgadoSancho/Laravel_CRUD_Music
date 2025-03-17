@@ -24,9 +24,11 @@ class ConcertController extends Controller
      */
     function new(Request $request)
     {
+
+        $concert = new concert;
+
         if ($request->isMethod('post')) {
 
-            $concert = new concert;
             $concert->nom = $request->nom;
             $concert->data_hora = $request->data_hora;
             $concert->aforament = $request->aforament;
@@ -34,6 +36,16 @@ class ConcertController extends Controller
             $concert->festival_id = $request->festival_id;
             $concert->save();
 
+        }
+
+        if ($request->has('asignado')) {
+
+            $array = [];
+            foreach ($request->asignado as $artista_id => $value) {
+                $array[$artista_id] = ['sou' => $request->sou[$artista_id]];
+            }
+
+            $concert->artistas()->sync($array);
             return redirect()->route('concert_list')->with('status', 'Nou concert ' . $concert->nom . ' creat!');
         }
 
@@ -56,13 +68,23 @@ class ConcertController extends Controller
             $concert->entrades_disponibles = $request->entrades_disponibles;
             $concert->festival_id = $request->festival_id;
             $concert->save();
+        }
 
+        if (isset($request->asignado)) {
+
+            $array = [];
+            foreach ($request->asignado as $artista_id => $value) {
+                $array[$artista_id] = ['sou' => $request->sou[$artista_id]];
+            }
+
+            $concert->artistas()->sync($array);
             return redirect()->route('concert_list')->with('status', 'Concert ' .
                 $concert->nom . ' editat!');
         }
 
+        $artistas = Artista::all();
         $festivals = Festival::all();
-        return view('concert.edit', ['concert' => $concert, 'festivals' => $festivals]);
+        return view('concert.edit', ['concert' => $concert, 'festivals' => $festivals, 'artistas' => $artistas]);
     }
 
     /**
