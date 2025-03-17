@@ -21,5 +21,5 @@
     &nbsp;&nbsp;&nbsp;
     <a href="{{ route('concert_list') }}">Concerts</a>
     &nbsp;&nbsp;&nbsp;
-    <a href="">Artistes</a>
+    <a href="{{ route('artista_list') }}">Artistes</a>
 </nav>

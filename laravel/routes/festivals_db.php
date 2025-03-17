@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ConcertController;
+use App\Http\Controllers\ArtistaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FestivalController;
 use App\Http\Controllers\DefaultController;
@@ -30,3 +31,13 @@ Route::match(['get', 'post'], '/concert/new', [ConcertController::class, 'new'])
 Route::match(['get', 'post'], '/concert/edit/{id}', [ConcertController::class, 'edit'])->name('concert_edit');
 
 Route::get('/concert/delete/{id}', [ConcertController::class, 'delete'])->name('concert_delete');
+
+//// artistas
+
+Route::get('/artista/list', [ArtistaController::class, 'list'])->name('artista_list');
+
+Route::match(['get', 'post'], '/artista/new', [ArtistaController::class, 'new'])->name('artista_new');
+
+Route::match(['get', 'post'], '/artista/edit/{id}', [ArtistaController::class, 'edit'])->name('artista_edit');
+
+Route::get('/artista/delete/{id}', [ArtistaController::class, 'delete'])->name('artista_delete');

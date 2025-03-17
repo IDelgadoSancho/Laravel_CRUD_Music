@@ -13,9 +13,9 @@ class Concert extends Model
     }
 
     // many to many artistas
-    public function artistas()
-    {
-        return $this->belongsToMany(Artista::class, 'artista_concert');
-    }
+    public function artistes()
+{
+    return $this->belongsToMany(Artista::class)->withPivot('sou');
+}
 
 }

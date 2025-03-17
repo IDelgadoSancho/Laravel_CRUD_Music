@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Concert;
 use App\Models\Festival;
+use App\Models\Artista;
 
 
 class ConcertController extends Controller
@@ -36,8 +37,9 @@ class ConcertController extends Controller
             return redirect()->route('concert_list')->with('status', 'Nou concert ' . $concert->nom . ' creat!');
         }
 
+        $artistas = Artista::all();
         $festivals = Festival::all();
-        return view('concert.new', ['festivals' => $festivals]);
+        return view('concert.new', ['festivals' => $festivals, 'artistas' => $artistas]);
     }
 
     /**
