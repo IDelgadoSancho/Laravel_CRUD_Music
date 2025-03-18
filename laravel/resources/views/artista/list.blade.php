@@ -43,5 +43,17 @@
                 </tr>
             @endforeach
         </tbody>
+</table>
+
+        <form action="{{ route('artista_cerca_genere') }}" method="get">
+            <label for="cercar">Cerca per<strong>&nbsp;Genere:</strong></label>
+            <input type="text" name="cercar" required>
+            <input type="submit" value="Cerca">&nbsp;
+
+            @if (request()->has('cercar'))
+                <label>Cercat per ... <strong>{{ request('cercar') }}</strong></label><br /><br />
+                <a href="{{ route('artista_list') }}">+ Neteja la cerca</a>
+            @endif
+        </form>
 
 @endsection

@@ -41,3 +41,17 @@ Route::match(['get', 'post'], '/artista/new', [ArtistaController::class, 'new'])
 Route::match(['get', 'post'], '/artista/edit/{id}', [ArtistaController::class, 'edit'])->name('artista_edit');
 
 Route::get('/artista/delete/{id}', [ArtistaController::class, 'delete'])->name('artista_delete');
+
+//// cercar
+
+Route::get('/concert_cerca', [ConcertController::class, 'concert_cerca'])->name('concert_cerca_artista');
+
+Route::get('/artista_cerca', [ArtistaController::class, 'artista_cerca'])->name('artista_cerca_genere');
+
+//// filtre
+
+Route::get('/concert_filtra_data', [ConcertController::class, 'concer_filtre_data'])->name('concert_filtra_data');
+
+Route::get('/concert_filtra_aforament', [ConcertController::class, 'concer_filtre_aforament'])->name('concert_filtra_aforament');
+
+Route::get('/concert_filtra_entrades', [ConcertController::class, 'concer_filtre_entrades'])->name('concert_filtra_entrades');

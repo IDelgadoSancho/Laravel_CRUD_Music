@@ -18,6 +18,13 @@ class ArtistaController extends Controller
         return view('artista.list', ['artistas' => $artistas]);
     }
 
+    function artista_cerca(Request $request)
+    {
+        $artista = new Artista;
+        $artistas = $artista->cercaGenere($request->cercar);
+        return view('artista.list', ['artistas' => $artistas]);
+    }
+
     /**
      * Store a newly created resource in storage.
      */
@@ -36,7 +43,7 @@ class ArtistaController extends Controller
                 //guardem en una variable $filename el nom que posarem al fitxer
                 $extension = $file->getClientOriginalExtension();
                 $filename = $artista->nom . "." . $extension;
-                $file->move(public_path(env('RUTA_IMATGES'). '/artistas'), $filename);
+                $file->move(public_path(env('RUTA_IMATGES') . '/artistas'), $filename);
                 $artista->foto_artista = $filename;
             }
 
@@ -66,7 +73,7 @@ class ArtistaController extends Controller
                 //guardem en una variable $filename el nom que posarem al fitxer
                 $extension = $file->getClientOriginalExtension();
                 $filename = $artista->nom . "." . $extension;
-                $file->move(public_path(env('RUTA_IMATGES'). '/artistas'), $filename);
+                $file->move(public_path(env('RUTA_IMATGES') . '/artistas'), $filename);
                 $artista->foto_artista = $filename;
             }
 
@@ -74,7 +81,7 @@ class ArtistaController extends Controller
             if ($active == 0) {
                 $filename = $artista->foto_artista;
                 $artista->foto_artista = null;
-                File::delete(public_path(env('RUTA_IMATGES'). '/artistas') . $filename);
+                File::delete(public_path(env('RUTA_IMATGES') . '/artistas') . $filename);
             }
 
             $artista->save();

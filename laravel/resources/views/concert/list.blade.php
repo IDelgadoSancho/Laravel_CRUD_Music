@@ -21,9 +21,23 @@
         <thead>
             <tr>
                 <th>Nom</th>
-                <th>Data Hora</th>
-                <th>Aforament</th>
-                <th>Entrades Disponibles</th>
+                <th>Data Hora
+                    <form action="{{ route('concert_filtra_data') }}" method="get">
+                        <input type="submit" name="sort" value="asc">&nbsp;
+                        <input type="submit" name="sort" value="des">&nbsp;
+                    </form>
+                <th>Aforament
+                <form action="{{ route('concert_filtra_aforament') }}" method="get">
+                        <input type="submit" name="sort" value="asc">&nbsp;
+                        <input type="submit" name="sort" value="des">&nbsp;
+                    </form>
+                </th>
+                <th>Entrades Disponibles
+                <form action="{{ route('concert_filtra_entrades') }}" method="get">
+                        <input type="submit" name="sort" value="asc">&nbsp;
+                        <input type="submit" name="sort" value="des">&nbsp;
+                    </form>
+                </th>
                 <th>Artistes</th>
                 <th>Festival</th>
             </tr>
@@ -52,6 +66,19 @@
                     </td>
                 </tr>
             @endforeach
+
         </tbody>
+    </table>
+
+    <form action="{{ route('concert_cerca_artista') }}" method="get">
+        <label for="cercar">Cerca<strong>&nbsp;artista:</strong></label>
+        <input type="text" name="cercar" required>
+        <input type="submit" value="Cerca">&nbsp;
+
+        @if (request()->has('cercar'))
+            <label>Cercat per ... <strong>{{ request('cercar') }}</strong></label><br /><br />
+            <a href="{{ route('concert_list') }}">+ Neteja la cerca</a>
+        @endif
+    </form>
 
 @endsection

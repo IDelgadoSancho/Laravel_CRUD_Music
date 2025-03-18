@@ -20,6 +20,37 @@ class ConcertController extends Controller
     }
 
     /**
+     * Filters.
+     */
+    function concert_cerca(Request $request)
+    {
+        $concert = new Concert;
+        $concerts = $concert->cercaArtista($request->cercar);
+        return view('concert.list', ['concerts' => $concerts]);
+    }
+
+    function concer_filtre_data(Request $request)
+    {
+        $concert = new Concert;
+        $concerts = $concert->filtreData($request->input('sort'));
+        return view('concert.list', ['concerts' => $concerts]);
+    }
+
+    function concer_filtre_aforament(Request $request)
+    {
+        $concert = new Concert;
+        $concerts = $concert->filtreAforament($request->input('sort'));
+        return view('concert.list', ['concerts' => $concerts]);
+    }
+
+    function concer_filtre_entrades(Request $request)
+    {
+        $concert = new Concert;
+        $concerts = $concert->filtreEntrades($request->input('sort'));
+        return view('concert.list', ['concerts' => $concerts]);
+    }
+
+    /**
      * Store a newly created resource in storage.
      */
     function new(Request $request)
