@@ -24,6 +24,7 @@
                 <th>Genere Musical</th>
                 <th>Pais Origen</th>
                 <th>Foto Artista</th>
+                <th>Accions</th>
             </tr>
         </thead>
         <tbody>

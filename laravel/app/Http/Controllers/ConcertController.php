@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Concert;
 use App\Models\Festival;
 use App\Models\Artista;
+use Illuminate\Support\Facades\Auth;
 
 
 class ConcertController extends Controller
@@ -128,6 +129,23 @@ class ConcertController extends Controller
 
         return redirect()->route('concert_list')->with('status', 'Concert ' .
             $concert->nom . ' eliminat!');
+    }
+
+    public function comprarEntrades(Request $request, $id)
+    {
+        $concert = Concert::find($id);
+        $user = Auth::user();
+        $entrades = $request->input('entrades');
+        
+        // Verificar si hay suficientes entradas disponibles
+        if ($concert->entradesDisponibles() < $entrades) {
+            return redirect()->back()->with('error', 'No hi ha suficients entrades disponibles.');
+        }
+    
+        // Registrar la compra
+        $concert->usuaris()->attach($user->id, ['entrades_comprades' => $entrades]);
+    
+        return redirect()->route('concerts.show', $concert->id)->with('success', 'Compra realitzada correctament!');
     }
 
 }

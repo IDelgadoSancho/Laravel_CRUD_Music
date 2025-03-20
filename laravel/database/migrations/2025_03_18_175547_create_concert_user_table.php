@@ -4,17 +4,17 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('artista_concert', function (Blueprint $table) {
+        Schema::create('concert_user', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('artista_id')->constrained()->onDelete('cascade');
             $table->foreignId('concert_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->integer('entrades_comprades');
             $table->timestamps();
         });
     }
@@ -24,6 +24,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('artista_concert');
+        Schema::table('concert_user', function (Blueprint $table) {
+        });
     }
 };

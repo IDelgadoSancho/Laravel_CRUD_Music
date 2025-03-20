@@ -51,4 +51,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(Festival::class);
     }
+
+    public function concerts()
+    {
+        return $this->belongsToMany(Concert::class, 'concert_usuari')
+            ->withPivot('entrades_comprades')
+            ->withTimestamps();
+    }
 }

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
 
 class Concert extends Model
 {
@@ -67,4 +68,18 @@ class Concert extends Model
                 return Concert::all();
         }
     }
+
+    public function usuaris()
+    {
+        return $this->belongsToMany(User::class, 'concert_user')
+            ->withPivot('entrades_comprades')
+            ->withTimestamps();
+    }
+
+    public function entradesDisponibles()
+    {
+        $entradesVenudes = $this->usuaris()->sum('entrades_comprades');
+        return $this->aforament - $entradesVenudes;
+    }
+
 }

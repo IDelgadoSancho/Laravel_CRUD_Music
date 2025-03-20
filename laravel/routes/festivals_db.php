@@ -55,3 +55,7 @@ Route::get('/concert_filtra_data', [ConcertController::class, 'concer_filtre_dat
 Route::get('/concert_filtra_aforament', [ConcertController::class, 'concer_filtre_aforament'])->name('concert_filtra_aforament');
 
 Route::get('/concert_filtra_entrades', [ConcertController::class, 'concer_filtre_entrades'])->name('concert_filtra_entrades');
+
+//// comprar entrades
+
+Route::post('/concert/{id}/comprar', [ConcertController::class, 'comprarEntrades'])->name('concerts_comprar');

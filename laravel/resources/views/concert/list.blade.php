@@ -27,19 +27,20 @@
                         <input type="submit" name="sort" value="des">&nbsp;
                     </form>
                 <th>Aforament
-                <form action="{{ route('concert_filtra_aforament') }}" method="get">
+                    <form action="{{ route('concert_filtra_aforament') }}" method="get">
                         <input type="submit" name="sort" value="asc">&nbsp;
                         <input type="submit" name="sort" value="des">&nbsp;
                     </form>
                 </th>
                 <th>Entrades Disponibles
-                <form action="{{ route('concert_filtra_entrades') }}" method="get">
+                    <form action="{{ route('concert_filtra_entrades') }}" method="get">
                         <input type="submit" name="sort" value="asc">&nbsp;
                         <input type="submit" name="sort" value="des">&nbsp;
                     </form>
                 </th>
                 <th>Artistes</th>
                 <th>Festival</th>
+                <th>Accions</th>
             </tr>
         </thead>
         <tbody>
@@ -48,7 +49,18 @@
                     <td>{{ $concert->nom }}</td>
                     <td>{{ $concert->data_hora->format('d-m-Y') }}</td>
                     <td>{{ $concert->aforament }}</td>
-                    <td>{{ $concert->entrades_disponibles }}</td>
+                    <td>{{ $concert->entrades_disponibles }}
+
+                        @if(Auth::check())
+                            <form action="{{ route('concerts_comprar', $concert->id) }}" method="POST">
+                                @csrf
+                                <label for="entrades">Nombre d’entrades:</label>
+                                <input type="number" name="entrades" min="1" max="{{ $concert->entradesDisponibles() }}" required>
+                                <button type="submit">Comprar Entrades</button>
+                            </form>
+                        @endif
+
+                    </td>
                     <td>
                         @if ($concert->artistas->isEmpty())
                             No hi ha artistas associats
