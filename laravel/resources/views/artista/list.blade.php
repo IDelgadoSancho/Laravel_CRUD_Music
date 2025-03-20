@@ -9,7 +9,10 @@
 @section('content')
 
     <h1>Llista de Artistas</h1>
-    <a href="{{ route('artista_new') }}">Crear Artista</a>
+
+    @if (Auth::check() && Auth::user()->isAdmin())
+        <a href="{{ route('artista_new') }}">Crear Artista</a>
+    @endif
 
     @if (session('status'))
         <div>
@@ -24,7 +27,6 @@
                 <th>Genere Musical</th>
                 <th>Pais Origen</th>
                 <th>Foto Artista</th>
-                <th>Accions</th>
             </tr>
         </thead>
         <tbody>
@@ -37,24 +39,26 @@
                         <img src="{{ asset(env('RUTA_IMATGES') . '/artistas/' . $artista->foto_artista) }}"
                             style="width: 100px; heigth: auto;" alt="">
                     </td>
-                    <td>
-                        <a href="{{ route('artista_edit', ['id' => $artista->id]) }}">Editar</a>
-                        <a href="{{ route('artista_delete', ['id' => $artista->id]) }}">Eliminar</a>
-                    </td>
+                    @if (Auth::check() && Auth::user()->isAdmin())
+                        <td>
+                            <a href="{{ route('artista_edit', ['id' => $artista->id]) }}">Editar</a>
+                            <a href="{{ route('artista_delete', ['id' => $artista->id]) }}">Eliminar</a>
+                        </td>
+                    @endif
                 </tr>
             @endforeach
         </tbody>
-</table>
+    </table>
 
-        <form action="{{ route('artista_cerca_genere') }}" method="get">
-            <label for="cercar">Cerca per<strong>&nbsp;Genere:</strong></label>
-            <input type="text" name="cercar" required>
-            <input type="submit" value="Cerca">&nbsp;
+    <form action="{{ route('artista_cerca_genere') }}" method="get">
+        <label for="cercar">Cerca per<strong>&nbsp;Genere:</strong></label>
+        <input type="text" name="cercar" required>
+        <input type="submit" value="Cerca">&nbsp;
 
-            @if (request()->has('cercar'))
-                <label>Cercat per ... <strong>{{ request('cercar') }}</strong></label><br /><br />
-                <a href="{{ route('artista_list') }}">+ Neteja la cerca</a>
-            @endif
-        </form>
+        @if (request()->has('cercar'))
+            <label>Cercat per ... <strong>{{ request('cercar') }}</strong></label><br /><br />
+            <a href="{{ route('artista_list') }}">+ Neteja la cerca</a>
+        @endif
+    </form>
 
 @endsection

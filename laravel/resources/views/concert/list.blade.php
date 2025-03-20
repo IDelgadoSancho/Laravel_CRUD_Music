@@ -9,7 +9,10 @@
 @section('content')
 
     <h1>Llista de Concerts</h1>
+    
+    @if (Auth::check() && Auth::user()->isOrganitzador() && Auth::user()->id == $concert->festival->user_id)
     <a href="{{ route('concert_new') }}">Crear Concert</a>
+    @endif
 
     @if (session('status'))
         <div>
@@ -40,7 +43,6 @@
                 </th>
                 <th>Artistes</th>
                 <th>Festival</th>
-                <th>Accions</th>
             </tr>
         </thead>
         <tbody>
@@ -51,8 +53,7 @@
                     <td>{{ $concert->aforament }}</td>
                     <td>{{ $concert->entradesDisponibles() }}
 
-                        @if(Auth::check())
-
+                        @if(Auth::check() && Auth::user()->isUsuari())
                                     @php
                                         $usuari = Auth::user();
                                         $entradesActuals = $concert->usuaris->where('id', $usuari->id)->first()?->pivot->entrades_comprades ?? 1;
@@ -79,10 +80,14 @@
                         @endif
                     </td>
                     <td>{{ $concert->festival->nom }}</td>
-                    <td>
-                        <a href="{{ route('concert_edit', ['id' => $concert->id]) }}">Editar</a>
-                        <a href="{{ route('concert_delete', ['id' => $concert->id]) }}">Eliminar</a>
-                    </td>
+
+                    @if (Auth::check() && Auth::user()->isOrganitzador() && Auth::user()->id == $concert->festival->user_id)
+                        <td>
+                            <a href="{{ route('concert_edit', ['id' => $concert->id]) }}">Editar</a>
+                            <a href="{{ route('concert_delete', ['id' => $concert->id]) }}">Eliminar</a>
+                        </td>
+                    @endif
+
                 </tr>
             @endforeach
 

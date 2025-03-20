@@ -58,4 +58,19 @@ class User extends Authenticatable
             ->withPivot('entrades_comprades')
             ->withTimestamps();
     }
+
+    public function isAdmin()
+    {
+        return $this->rol === 'admin';
+    }
+
+    public function isOrganitzador()
+    {
+        return $this->rol === 'organitzador';
+    }
+
+    public function isUsuari()
+    {
+        return $this->rol === 'usuari';
+    }
 }

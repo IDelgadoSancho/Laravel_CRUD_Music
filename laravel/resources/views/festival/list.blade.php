@@ -9,7 +9,10 @@
 @section('content')
 
     <h1>Llista de Festivals</h1>
-    <a href="{{ route('festival_new') }}">Crear Festival</a>
+
+    @if (Auth::check() && Auth::user()->isAdmin())
+        <a href="{{ route('festival_new') }}">Crear Festival</a>
+    @endif
 
     @if (session('status'))
         <div>
@@ -27,7 +30,6 @@
                 <th>Concerts</th>
                 <th>Cartell</th>
                 <th>Organitzador</th>
-                <th>Accions</th>
             </tr>
         </thead>
         <tbody>
@@ -62,14 +64,15 @@
                             style="width: 100px; heigth: auto;" alt="">
                     </td>
                     <td>{{ $festival->organitzador->name }}</td>
-                    <td>
-                        <a href="{{ route('festival_edit', ['id' => $festival->id]) }}">Editar</a>
-                        <a href="{{ route('festival_delete', ['id' => $festival->id]) }}">Eliminar</a>
-                    </td>
+                    @if (Auth::check() && Auth::user()->isAdmin() || (Auth::check() && Auth::user()->isOrganitzador() && Auth::user()->id == $festival->user_id))
+                        <td>
+                            <a href="{{ route('festival_edit', ['id' => $festival->id]) }}">Editar</a>
+                            <a href="{{ route('festival_delete', ['id' => $festival->id]) }}">Eliminar</a>
+                        </td>
+                    @endif
                 </tr>
             @endforeach
         </tbody>
     </table>
-
 
 @endsection
