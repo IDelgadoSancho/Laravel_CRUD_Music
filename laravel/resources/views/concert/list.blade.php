@@ -49,15 +49,22 @@
                     <td>{{ $concert->nom }}</td>
                     <td>{{ $concert->data_hora->format('d-m-Y') }}</td>
                     <td>{{ $concert->aforament }}</td>
-                    <td>{{ $concert->entrades_disponibles }}
+                    <td>{{ $concert->entradesDisponibles() }}
 
                         @if(Auth::check())
-                            <form action="{{ route('concerts_comprar', $concert->id) }}" method="POST">
-                                @csrf
-                                <label for="entrades">Nombre d’entrades:</label>
-                                <input type="number" name="entrades" min="1" max="{{ $concert->entradesDisponibles() }}" required>
-                                <button type="submit">Comprar Entrades</button>
-                            </form>
+
+                                    @php
+                                        $usuari = Auth::user();
+                                        $entradesActuals = $concert->usuaris->where('id', $usuari->id)->first()?->pivot->entrades_comprades ?? 1;
+                                    @endphp
+
+                                    <form action="{{ route('concerts_comprar', $concert->id) }}" method="POST">
+                                        @csrf
+                                        <label for="entrades">Nombre d’entrades:</label>
+                                        <input type="number" name="entrades" min="1" max="{{ $concert->entradesDisponibles() }}" required
+                                            value="{{ $entradesActuals }}">
+                                        <button type="submit">Comprar Entrades</button>
+                                    </form>
                         @endif
 
                     </td>

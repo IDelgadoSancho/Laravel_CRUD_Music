@@ -43,6 +43,17 @@
                         @else
                             @foreach ($festival->concerts as $concert)
                                 {{ $concert->nom }}<br />
+
+                                @if($concert->usuaris->isEmpty())
+                                    <p>Encara no s'han comprat entrades per aquest concert.</p>
+                                @else
+                                    <ul>
+                                        @foreach($concert->usuaris as $usuari)
+                                            <li>{{ $usuari->name }} - {{ $usuari->pivot->entrades_comprades }} entrades</li>
+                                        @endforeach
+                                    </ul>
+                                @endif
+
                             @endforeach
                         @endif
                     </td>

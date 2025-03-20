@@ -22,4 +22,14 @@ class Festival extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function getEntradesPerConcert()
+    {
+        return $this->concerts()->with([
+            'users' => function ($query) {
+                $query->withPivot('entrades_comprades');
+            }
+        ])->get();
+    }
+
 }

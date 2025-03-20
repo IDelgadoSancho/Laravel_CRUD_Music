@@ -133,19 +133,33 @@ class ConcertController extends Controller
 
     public function comprarEntrades(Request $request, $id)
     {
-        $concert = Concert::find($id);
-        $user = Auth::user();
-        $entrades = $request->input('entrades');
-        
-        // Verificar si hay suficientes entradas disponibles
-        if ($concert->entradesDisponibles() < $entrades) {
-            return redirect()->back()->with('error', 'No hi ha suficients entrades disponibles.');
+        $concert = Concert::findOrFail($id);
+        $usuari = Auth::user();
+        $entradesNoves = $request->input('entrades');
+
+        // verifica
+        $compra = $concert->usuaris()->where('user_id', $usuari->id)->first();
+
+        if ($compra) {
+            // suma
+            $entradesTotals = $compra->pivot->entrades_comprades + $entradesNoves;
+
+            // afortament
+            if ($entradesTotals > $concert->aforament) {
+                return redirect()->back()->with('error', 'No hi ha suficients entrades disponibles.');
+            }
+
+            // actualitzar
+            $concert->usuaris()->updateExistingPivot($usuari->id, ['entrades_comprades' => $entradesTotals]);
+        } else {
+            if ($entradesNoves > $concert->entradesDisponibles()) {
+                return redirect()->back()->with('error', 'No hi ha suficients entrades disponibles.');
+            }
+
+            $concert->usuaris()->attach($usuari->id, ['entrades_comprades' => $entradesNoves]);
         }
-    
-        // Registrar la compra
-        $concert->usuaris()->attach($user->id, ['entrades_comprades' => $entrades]);
-    
-        return redirect()->route('concerts.show', $concert->id)->with('success', 'Compra realitzada correctament!');
+
+        return redirect()->route('concert_list', $concert->id)->with('success', 'Compra realitzada correctament!');
     }
 
 }
