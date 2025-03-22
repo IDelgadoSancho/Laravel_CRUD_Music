@@ -47,7 +47,7 @@ class FestivalController extends Controller
             return redirect()->route('festival_list')->with('status', 'Nou festival ' . $festival->nom . ' creat!');
         }
 
-        $users = User::all();
+        $users = User::getOrganitzadors();
 
         return view('festival.new', ['users' => $users]);
     }
@@ -89,7 +89,8 @@ class FestivalController extends Controller
                 $festival->nom . ' editat!');
         }
 
-        $users = User::all();
+        $users = User::getOrganitzadors();
+        
         return view('festival.edit', ['festival' => $festival, 'users' => $users]);
     }
 

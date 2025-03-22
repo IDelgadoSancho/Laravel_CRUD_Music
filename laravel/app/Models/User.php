@@ -73,4 +73,9 @@ class User extends Authenticatable
     {
         return $this->rol === 'usuari';
     }
+
+    public static function getOrganitzadors(){
+        $users = User::where('rol', 'like', 'organitzador' )->get();
+        return $users;
+    }
 }
