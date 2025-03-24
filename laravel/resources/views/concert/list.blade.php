@@ -10,7 +10,7 @@
 
     <h1>Llista de Concerts</h1>
 
-    @if (Auth::check() && Auth::user()->isOrganitzador() && Auth::user()->id == $concert->festival->user_id || (Auth::check() && Auth::user()->isAdmin()))
+    @if (Auth::check() && Auth::user()->isOrganitzador() && Auth::user()->isUsuari() || (Auth::check() && Auth::user()->isAdmin()))
         <a href="{{ route('concert_new') }}">Crear Concert</a>
     @endif
 
