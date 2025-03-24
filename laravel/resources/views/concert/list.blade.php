@@ -106,7 +106,9 @@
                                                     <a href="{{ route('concert_edit', ['id' => $concert->id]) }}"
                                                         class="bg-teal-600 hover:bg-teal-700 text-white font-bold py-1 px-2 rounded">Editar</a>
                                                     <a href="{{ route('concert_delete', ['id' => $concert->id]) }}"
-                                                        class="bg-rose-600 hover:bg-rose-700 text-white font-bold py-1 px-2 rounded">Eliminar</a>
+                                                        class="bg-rose-600 hover:bg-rose-700 text-white font-bold py-1 px-2 rounded">
+                                                        <img src="{{ asset('images/trash.svg') }}" alt="Delete"
+                                                            class="w-4 h-4 inline-block"></a>
                                                 </td>
                                             @endif
 
@@ -118,18 +120,22 @@
             </div>
         </div>
 
-        <form action="{{ route('concert_cerca_artista') }}" method="get" class="mt-4">
-            <label for="cercar">Cerca<strong>&nbsp;artista:</strong></label>
-            <input type="text" name="cercar" required class="bg-gray-600 text-white py-1 px-2 rounded">
-            <input type="submit" value="Cerca"
-                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">&nbsp;
+        <div class="flex justify-center mt-4">
+            <form action="{{ route('concert_cerca_artista') }}" method="get" class="w-full max-w-lg">
+                <label for="cercar" class="text-[#FF3427]">Cerca<strong>&nbsp;artista:</strong></label>
+                <input type="text" name="cercar" required class="bg-gray-600 text-white py-1 px-2 rounded w-full">
+                <input type="submit" value="Cerca"
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mt-2 w-40">
 
-            @if (request()->has('cercar'))
-                <label>Cercat per ... <strong>{{ request('cercar') }}</strong></label><br /><br />
-                <a href="{{ route('concert_list') }}" class="bg-gray-600 hover:bg-gray-500 text-white py-1 px-2 rounded">+
-                    Neteja la cerca</a>
-            @endif
-        </form>
+                @if (request()->has('cercar'))
+                    <label class="block mt-2 text-[#FF3427]">Cercat per ...
+                        <strong>{{ request('cercar') }}</strong></label><br /><br />
+                    <a href="{{ route('concert_list') }}"
+                        class="bg-gray-600 hover:bg-gray-500 text-white py-1 px-2 rounded mt-2 w-full">+
+                        Neteja la cerca</a>
+                @endif
+            </form>
+        </div>
 
     </div>
 

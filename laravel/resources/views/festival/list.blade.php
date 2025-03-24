@@ -75,7 +75,8 @@
                                         <a href="{{ route('festival_edit', ['id' => $festival->id]) }}"
                                             class="bg-teal-600 hover:bg-teal-700 text-white font-bold py-1 px-2 rounded">Editar</a>
                                         <a href="{{ route('festival_delete', ['id' => $festival->id]) }}"
-                                            class="bg-rose-600 hover:bg-rose-700 text-white font-bold py-1 px-2 rounded">Eliminar</a>
+                                            class="bg-rose-600 hover:bg-rose-700 text-white font-bold py-1 px-2 rounded">
+                                            <img src="{{ asset('images/trash.svg') }}" alt="Delete" class="w-4 h-4 inline-block"></a>
                                     </td>
                                 @endif
                             </tr>

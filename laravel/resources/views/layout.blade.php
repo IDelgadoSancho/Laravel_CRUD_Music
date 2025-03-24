@@ -10,7 +10,7 @@
     @show
 </head>
 
-<body>
+<body class="bg-gray-950">
     @include('navbar')
     <div class="container">
         @yield('content')
