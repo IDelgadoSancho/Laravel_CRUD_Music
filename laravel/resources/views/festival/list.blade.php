@@ -73,9 +73,9 @@
                                 @if (Auth::check() && Auth::user()->isAdmin() || (Auth::check() && Auth::user()->isOrganitzador() && Auth::user()->id == $festival->user_id))
                                     <td class="py-2 px-4">
                                         <a href="{{ route('festival_edit', ['id' => $festival->id]) }}"
-                                            class="bg-teal-600 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded">Editar</a>
+                                            class="bg-teal-600 hover:bg-teal-700 text-white font-bold py-1 px-2 rounded">Editar</a>
                                         <a href="{{ route('festival_delete', ['id' => $festival->id]) }}"
-                                            class="bg-rose-600 hover:bg-rose-700 text-white font-bold py-2 px-4 rounded">Eliminar</a>
+                                            class="bg-rose-600 hover:bg-rose-700 text-white font-bold py-1 px-2 rounded">Eliminar</a>
                                     </td>
                                 @endif
                             </tr>

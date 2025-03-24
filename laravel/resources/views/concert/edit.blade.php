@@ -8,61 +8,71 @@
 
 @section('content')
 
-    <h1>Editar Concert</h1>
+    <div class="p-5 ">
 
-    <form action="{{ route('concert_edit', ['id' => $concert->id]) }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        <div>
-            <label>Nom:
-                <input type="text" name="nom" value="{{ $concert->nom }}" required></label>
-        </div>
-        <br>
-        <div>
-            <label>Data Hora:
-                <input type="date" name="data_hora"
-                    value="{{ old('data_hora', isset($concert) ? $concert->data_hora->format('Y-m-d') : '') }}"
-                    required></label>
-        </div>
-        <br>
-        <div>
-            <label>Aforament:
-                <input type="number" name="aforament" value="{{ $concert->aforament }}" required></label>
-        </div>
-        <br>
-        <div>
-            <label>Entrades Disponibles:
-                <input type="number" name="entrades_disponibles" value="{{ $concert->entrades_disponibles }}"
-                    required></label>
-        </div>
-        <br>
-        <label>Festival:
-            <select name="festival_id">
-                @foreach ($festivals as $festival)
-                    <option value="{{ $festival->id }}" {{ $concert->festival_id == $festival->id ? 'selected' : '' }}>
-                        {{ $festival->nom }}
-                    </option>
-                @endforeach
-            </select>
-        </label>
-        <br>
+        <div class="bg-gray-800 text-white rounded-lg p-3">
 
-        @if ($artistas->isNotEmpty())
-            <br>
-            <label for="artistas">Artistas:</label><br>
-            @foreach ($artistas as $artista)
-                <input type="checkbox" name="asignado[{{ $artista->id }}]" value="{{ $artista->id }}"
-                    @checked($concert->artistas->contains($artista->id))>{{ $artista->nom }}
+            <h1 class="text-3xl font-bold mb-4 text-[#FF3427]">Editar Concert</h1>
 
-                @if (isset($concert->artistas->find($artista->id)->pivot->sou))
-                    <input type="number" name="sou[{{ $artista->id }}]"
-                        value="{{ $concert->artistas->find($artista->id)->pivot->sou }}">&nbsp; Sou<br>
-                @else
-                    <input type="number" name="sou[{{ $artista->id }}]" value="0">&nbsp; Sou<br>
+            <form action="{{ route('concert_edit', ['id' => $concert->id]) }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="mb-4">
+                    <label class="block text-sm font-medium mb-2">Nom:</label>
+                    <input type="text" name="nom" value="{{ $concert->nom }}" required
+                        class="w-full px-3 py-2 bg-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-medium mb-2">Data Hora:</label>
+                    <input type="date" name="data_hora"
+                        value="{{ old('data_hora', isset($concert) ? $concert->data_hora->format('Y-m-d') : '') }}" required
+                        class="w-full px-3 py-2 bg-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-medium mb-2">Aforament:</label>
+                    <input type="number" name="aforament" value="{{ $concert->aforament }}" required
+                        class="w-full px-3 py-2 bg-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-medium mb-2">Entrades Disponibles:</label>
+                    <input type="number" name="entrades_disponibles" value="{{ $concert->entrades_disponibles }}" required
+                        class="w-full px-3 py-2 bg-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-medium mb-2">Festival:</label>
+                    <select name="festival_id"
+                        class="w-full px-3 py-2 bg-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        @foreach ($festivals as $festival)
+                            <option value="{{ $festival->id }}" {{ $concert->festival_id == $festival->id ? 'selected' : '' }}>
+                                {{ $festival->nom }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                @if ($artistas->isNotEmpty())
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium mb-2">Artistas:</label>
+                        @foreach ($artistas as $artista)
+                            <div class="flex items-center mb-2">
+                                <input type="checkbox" name="asignado[{{ $artista->id }}]" value="{{ $artista->id }}"
+                                    @checked($concert->artistas->contains($artista->id))
+                                    class="form-checkbox text-blue-500">
+                                <span class="ml-2">{{ $artista->nom }}</span>
+                                <input type="number" name="sou[{{ $artista->id }}]"
+                                    value="{{ $concert->artistas->find($artista->id)->pivot->sou ?? 0 }}"
+                                    class="ml-2 w-24 px-3 py-2 bg-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <span class="ml-2">Sou</span>
+                            </div>
+                        @endforeach
+                    </div>
                 @endif
-            @endforeach
-        @endif
 
-        <button type="submit">Actualitzar</button>
-    </form>
+                <button type="submit"
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Actualitzar</button>
+            </form>
+
+        </div>
+
+    </div>
 
 @endsection
