@@ -11,7 +11,7 @@
     <div class="p-5">
 
         <h1 class="text-3xl font-bold mb-4 text-[#FF3427]">Llista de Concerts
-        <img src="{{ asset('images/concert.svg') }}" alt="Delete" class="w-auto h-10 ml-1 inline-block">
+            <img src="{{ asset('images/concert.svg') }}" alt="Delete" class="w-auto h-10 ml-1 inline-block">
         </h1>
 
         @if (Auth::check() && Auth::user()->isOrganitzador() && Auth::user()->isUsuari() || (Auth::check() && Auth::user()->isAdmin()))
@@ -66,55 +66,60 @@
                     </thead>
                     <tbody>
                         @foreach ($concerts as $concert)
-                                        <tr class="border-b border-gray-700">
-                                            <td class="py-2 px-4">{{ $concert->nom }}</td>
-                                            <td class="py-2 px-4">{{ $concert->data_hora->format('d-m-Y') }}</td>
-                                            <td class="py-2 px-4">{{ $concert->aforament }}</td>
-                                            <td class="py-2 px-4">{{ $concert->entradesDisponibles() }}
+                            <tr class="border-b border-gray-700">
+                                <td class="py-2 px-4">{{ $concert->nom }}</td>
+                                <td class="py-2 px-4">{{ $concert->data_hora->format('d-m-Y') }}</td>
+                                <td class="py-2 px-4">
+                                    {{ $concert->aforament }}
+                                    <div class="w-full bg-gray-600 rounded-full h-2.5 mt-2">
+                                        <div class="bg-blue-500 h-2.5 rounded-full" style="width: {{ ($concert->entrades_disponibles / $concert->aforament) * 100 }}%"></div>
+                                    </div>
+                                </td>
+                                <td class="py-2 px-4">{{ $concert->entradesDisponibles() }}
 
-                                                @if(Auth::check() && Auth::user()->isUsuari())
-                                                                        @php
-                                                                            $usuari = Auth::user();
-                                                                            $entradesActuals = $concert->usuaris->where('id', $usuari->id)->first()?->pivot->entrades_comprades ?? 1;
-                                                                        @endphp
+                                    @if(Auth::check() && Auth::user()->isUsuari())
+                                        @php
+                                            $usuari = Auth::user();
+                                            $entradesActuals = $concert->usuaris->where('id', $usuari->id)->first()?->pivot->entrades_comprades ?? 1;
+                                        @endphp
 
-                                                                        <form action="{{ route('concerts_comprar', $concert->id) }}" method="POST">
-                                                                            @csrf
-                                                                            <label for="entrades">Nombre d’entrades:</label>
-                                                                            <input type="number" name="entrades" min="1" max="{{ $concert->entradesDisponibles() }}"
-                                                                                required value="{{ $entradesActuals }}"
-                                                                                class="bg-gray-600 text-white py-1 px-2 rounded">
-                                                                            <button type="submit"
-                                                                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">Comprar
-                                                                                Entrades</button>
-                                                                        </form>
-                                                @endif
+                                        <form action="{{ route('concerts_comprar', $concert->id) }}" method="POST">
+                                            @csrf
+                                            <label for="entrades">Nombre d’entrades:</label>
+                                            <input type="number" name="entrades" min="1" max="{{ $concert->entradesDisponibles() }}"
+                                                required value="{{ $entradesActuals }}"
+                                                class="bg-gray-600 text-white py-1 px-2 rounded">
+                                            <button type="submit"
+                                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">Comprar
+                                                Entrades</button>
+                                        </form>
+                                    @endif
 
-                                            </td>
-                                            <td class="py-2 px-4">
-                                                @if ($concert->artistas->isEmpty())
-                                                    No hi ha artistas associats
-                                                @else
-                                                    @foreach ($concert->artistas as $artista)
-                                                        {{ $artista->nom }}
-                                                        ({{ $concert->artistas->find($artista->id)->pivot->sou  }} Sou)<br />
-                                                    @endforeach
-                                                @endif
-                                            </td>
-                                            <td class="py-2 px-4">{{ $concert->festival->nom }}</td>
+                                </td>
+                                <td class="py-2 px-4">
+                                    @if ($concert->artistas->isEmpty())
+                                        No hi ha artistas associats
+                                    @else
+                                        @foreach ($concert->artistas as $artista)
+                                            {{ $artista->nom }}
+                                            ({{ $concert->artistas->find($artista->id)->pivot->sou  }} Sou)<br />
+                                        @endforeach
+                                    @endif
+                                </td>
+                                <td class="py-2 px-4">{{ $concert->festival->nom }}</td>
 
-                                            @if (Auth::check() && Auth::user()->isOrganitzador() && Auth::user()->id == $concert->festival->user_id || (Auth::check() && Auth::user()->isAdmin()))
-                                                <td class="py-2 px-4">
-                                                    <a href="{{ route('concert_edit', ['id' => $concert->id]) }}"
-                                                        class="bg-teal-600 hover:bg-teal-700 text-white font-bold py-1 px-2 rounded">Editar</a>
-                                                    <a href="{{ route('concert_delete', ['id' => $concert->id]) }}"
-                                                        class="bg-rose-600 hover:bg-rose-700 text-white font-bold py-1 px-2 rounded">
-                                                        <img src="{{ asset('images/trash.svg') }}" alt="Delete"
-                                                            class="w-4 h-4 inline-block"></a>
-                                                </td>
-                                            @endif
+                                @if (Auth::check() && Auth::user()->isOrganitzador() && Auth::user()->id == $concert->festival->user_id || (Auth::check() && Auth::user()->isAdmin()))
+                                    <td class="py-2 px-4">
+                                        <a href="{{ route('concert_edit', ['id' => $concert->id]) }}"
+                                            class="bg-teal-600 hover:bg-teal-700 text-white font-bold py-1 px-2 rounded">Editar</a>
+                                        <a href="{{ route('concert_delete', ['id' => $concert->id]) }}"
+                                            class="bg-rose-600 hover:bg-rose-700 text-white font-bold py-1 px-2 rounded">
+                                            <img src="{{ asset('images/trash.svg') }}" alt="Delete"
+                                                class="w-4 h-4 inline-block"></a>
+                                    </td>
+                                @endif
 
-                                        </tr>
+                            </tr>
                         @endforeach
 
                     </tbody>

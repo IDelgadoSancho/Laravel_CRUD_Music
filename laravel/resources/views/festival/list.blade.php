@@ -11,7 +11,8 @@
     <div class="p-5">
 
         <h1 class="text-3xl font-bold mb-4 text-[#FF3427]">Llista de festivals
-        <img src="{{ asset('images/festival.svg') }}" alt="Delete" class="w-auto h-10 ml-1 inline-block"></h1>
+            <img src="{{ asset('images/festival.svg') }}" alt="Delete" class="w-auto h-10 ml-1 inline-block">
+        </h1>
 
         @if (Auth::check() && Auth::user()->isAdmin())
             <a href="{{ route('festival_new') }}"
@@ -68,7 +69,7 @@
                                 </td>
                                 <td class="py-2 px-4">
                                     <img src="{{ asset(env('RUTA_IMATGES') . '/festivals/' . $festival->cartell) }}"
-                                        class="w-24 h-auto rounded" alt="">
+                                        class="w-24 h-auto rounded" alt="Cartell">
                                 </td>
                                 <td class="py-2 px-4">{{ $festival->organitzador->name }}</td>
                                 @if (Auth::check() && Auth::user()->isAdmin() || (Auth::check() && Auth::user()->isOrganitzador() && Auth::user()->id == $festival->user_id))
@@ -77,7 +78,8 @@
                                             class="bg-teal-600 hover:bg-teal-700 text-white font-bold py-1 px-2 rounded">Editar</a>
                                         <a href="{{ route('festival_delete', ['id' => $festival->id]) }}"
                                             class="bg-rose-600 hover:bg-rose-700 text-white font-bold py-1 px-2 rounded">
-                                            <img src="{{ asset('images/trash.svg') }}" alt="Delete" class="w-4 h-4 inline-block"></a>
+                                            <img src="{{ asset('images/trash.svg') }}" alt="Delete"
+                                                class="w-4 h-4 inline-block"></a>
                                     </td>
                                 @endif
                             </tr>

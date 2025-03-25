@@ -47,7 +47,7 @@
                                 <td class="py-2 px-4">{{ $artista->pais_origen }}</td>
                                 <td class="py-2 px-4">
                                     <img src="{{ asset(env('RUTA_IMATGES') . '/artistas/' . $artista->foto_artista) }}"
-                                        class="w-24 h-auto rounded" alt="">
+                                        class="w-24 h-auto rounded" alt="Foto Artista">
                                 </td>
                                 @if (Auth::check() && Auth::user()->isAdmin())
                                     <td class="py-2 px-4">

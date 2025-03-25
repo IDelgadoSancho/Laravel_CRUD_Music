@@ -25,8 +25,10 @@
                 class="rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-gray-700">Register</a>
         @endif
         <br><br>
-        <a href="{{ route('home') }}"
-            class="rounded-md px-3 py-2 text-base font-bold text-white hover:bg-gray-700">Inici</a>
+
+        <a href="{{ route('home') }}" class="rounded-md px-3 py-2 text-base font-bold text-white hover:bg-gray-700">
+            <img src="{{ asset('images/home.svg') }}" alt="Delete" class=" h-5 mr-1 inline-block">Inici</a>
+
         &nbsp;&nbsp;&nbsp;
         <a href="{{ route('festival_list') }}"
             class="rounded-md px-3 py-2 text-base font-bold text-white hover:bg-gray-700">Festivals</a>
