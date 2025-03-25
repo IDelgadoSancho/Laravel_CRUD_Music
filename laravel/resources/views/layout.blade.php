@@ -12,7 +12,7 @@
 
 <body class="bg-gray-950">
     @include('navbar')
-    <div class="container">
+    <div class="w-full">
         @yield('content')
     </div>
 </body>

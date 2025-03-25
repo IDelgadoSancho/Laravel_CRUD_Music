@@ -10,7 +10,8 @@
 
     <div class="p-5">
 
-        <h1 class="text-3xl font-bold mb-4 text-[#FF3427]">Llista de Festivals</h1>
+        <h1 class="text-3xl font-bold mb-4 text-[#FF3427]">Llista de festivals
+        <img src="{{ asset('images/festival.svg') }}" alt="Delete" class="w-auto h-10 ml-1 inline-block"></h1>
 
         @if (Auth::check() && Auth::user()->isAdmin())
             <a href="{{ route('festival_new') }}"
@@ -54,7 +55,7 @@
                                         @foreach ($festival->concerts as $concert)
                                             {{ $concert->nom }}<br />
                                             @if($concert->usuaris->isEmpty())
-                                                <p>Encara no s'han comprat entrades per aquest concert.</p>
+                                                <p class="font-thin">Encara no s'han comprat entrades per aquest concert.</p>
                                             @else
                                                 <ul>
                                                     @foreach($concert->usuaris as $usuari)

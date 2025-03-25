@@ -5,6 +5,7 @@ use App\Http\Controllers\ArtistaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FestivalController;
 use App\Http\Controllers\DefaultController;
+use App\Http\Controllers\ProfileController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -59,3 +60,7 @@ Route::get('/concert_filtra_entrades', [ConcertController::class, 'concer_filtre
 //// comprar entrades
 
 Route::post('/concert/{id}/comprar', [ConcertController::class, 'comprarEntrades'])->name('concerts_comprar');
+
+//// users
+
+Route::get('/user/list', [ProfileController::class, 'list'])->name('user_list');

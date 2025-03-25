@@ -10,7 +10,9 @@
 
     <div class="p-5">
 
-        <h1 class="text-3xl font-bold mb-4 text-[#FF3427]">Llista de Artistas</h1>
+        <h1 class="text-3xl font-bold mb-4 text-[#FF3427]">Llista de Artistas
+        <img src="{{ asset('images/artista.svg') }}" alt="Delete" class="w-auto h-10 ml-1 inline-block">
+        </h1>
 
         @if (Auth::check() && Auth::user()->isAdmin())
             <a href="{{ route('artista_new') }}"

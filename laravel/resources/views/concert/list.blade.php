@@ -10,7 +10,9 @@
 
     <div class="p-5">
 
-        <h1 class="text-3xl font-bold mb-4 text-[#FF3427]">Llista de Concerts</h1>
+        <h1 class="text-3xl font-bold mb-4 text-[#FF3427]">Llista de Concerts
+        <img src="{{ asset('images/concert.svg') }}" alt="Delete" class="w-auto h-10 ml-1 inline-block">
+        </h1>
 
         @if (Auth::check() && Auth::user()->isOrganitzador() && Auth::user()->isUsuari() || (Auth::check() && Auth::user()->isAdmin()))
             <a href="{{ route('concert_new') }}"
